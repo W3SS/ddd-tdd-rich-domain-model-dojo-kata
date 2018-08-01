@@ -7,7 +7,7 @@ We designed the Finance Domain using Aggregate Roots, Entities and Value Objects
 Clone this repository to your machine, compile and test it:
 
 ```sh
-git clone https://github.com/ivanpaulovich/ddd-tdd-rich-domain.git
+git clone -b kata-initial https://github.com/ivanpaulovich/ddd-tdd-rich-domain-model-dojo-kata.git
 cd ddd-tdd-rich-domain
 ./build.sh
 ```
