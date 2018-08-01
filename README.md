@@ -8,7 +8,7 @@ Clone this repository to your machine, compile and test it:
 
 ```sh
 git clone -b kata-initial https://github.com/ivanpaulovich/ddd-tdd-rich-domain-model-dojo-kata.git
-cd ddd-tdd-rich-domain
+cd ddd-tdd-rich-domain-model-dojo-kata
 ./build.sh
 ```
 
