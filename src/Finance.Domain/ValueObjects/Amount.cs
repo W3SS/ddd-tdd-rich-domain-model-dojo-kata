@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Finance.Domain.ValueObjects
+﻿namespace Finance.Domain.ValueObjects
 {
     public sealed class Amount
     {
@@ -8,6 +6,9 @@ namespace Finance.Domain.ValueObjects
 
         public Amount(double value)
         {
+            if (value < 0)
+                throw new AmountShouldBePositiveException("The amount should be positive.");
+
             _value = value;
         }
 

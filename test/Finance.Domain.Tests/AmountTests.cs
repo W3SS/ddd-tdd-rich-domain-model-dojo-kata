@@ -1,6 +1,7 @@
 namespace Finance.DomainTests
 {
     using Finance.Domain.ValueObjects;
+    using System;
     using Xunit;
 
     public class AmountTests
@@ -75,6 +76,16 @@ namespace Finance.DomainTests
             //
             // Act & Assert
             Assert.True(thirty >= seventy);
+        }
+
+        [Fact]
+        public void Amount_With_Negative_Throws_Exception()
+        {
+            //
+            // Arrange Act
+            Exception ex = Record.Exception(() => new Amount(-10));
+
+            Assert.NotNull(ex);
         }
     }
 }

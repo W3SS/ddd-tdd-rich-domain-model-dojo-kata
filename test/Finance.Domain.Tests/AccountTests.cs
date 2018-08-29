@@ -132,5 +132,31 @@ namespace Finance.DomainTests
             Assert.Equal(Guid.Empty, account.Id);
             Assert.Equal(Guid.Empty, account.CustomerId);
         }
+
+        [Fact]
+        public void Deposit_Should_Throw_Exception_When_NegativeAmount()
+        {
+            //
+            // Arrange and Act
+            Account sut = new Account(Guid.NewGuid());
+            Exception ex = Record.Exception(() => sut.Deposit(-200));
+
+            //
+            // Assert
+            Assert.NotNull(ex);
+        }
+
+        [Fact]
+        public void Withdraw_Should_Throw_Exception_When_NegativeAmount()
+        {
+            //
+            // Arrange and Act
+            Account sut = new Account(Guid.NewGuid());
+            Exception ex = Record.Exception(() => sut.Withdraw(-200));
+
+            //
+            // Assert
+            Assert.NotNull(ex);
+        }
     }
 }
