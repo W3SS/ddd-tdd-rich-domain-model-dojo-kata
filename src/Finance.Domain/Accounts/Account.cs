@@ -24,7 +24,7 @@
 
         public void Withdraw(Amount amount)
         {
-            Amount balance = Transactions.GetCurrentBalance();
+            Amount balance = Transactions.GetBalance();
 
             if (balance < amount)
                 throw new InsuficientFundsException(
@@ -36,7 +36,7 @@
 
         public void Close()
         {
-            Amount balance = Transactions.GetCurrentBalance();
+            Amount balance = Transactions.GetBalance();
 
             if (balance > 0)
                 throw new AccountCannotBeClosedException(
@@ -45,7 +45,7 @@
 
         public Amount GetCurrentBalance()
         {
-            Amount balance = Transactions.GetCurrentBalance();
+            Amount balance = Transactions.GetBalance();
             return balance;
         }
 

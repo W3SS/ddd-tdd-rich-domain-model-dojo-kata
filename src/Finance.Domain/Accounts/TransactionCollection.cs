@@ -60,7 +60,7 @@
             }
         }
 
-        public Amount GetCurrentBalance()
+        public Amount GetBalance()
         {
             Amount balance = 0;
 
