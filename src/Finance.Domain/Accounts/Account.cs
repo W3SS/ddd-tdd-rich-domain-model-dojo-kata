@@ -51,7 +51,7 @@
 
         public ITransaction GetLastTransaction()
         {
-            ITransaction lastTransaction = Transactions.GetLastTransaction();
+            ITransaction lastTransaction = Transactions.CopyOfLastTransaction();
             return lastTransaction;
         }
 

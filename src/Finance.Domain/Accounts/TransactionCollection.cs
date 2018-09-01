@@ -13,16 +13,38 @@
             _transactions = new List<ITransaction>();
         }
 
-        public IReadOnlyCollection<ITransaction> GetTransactions()
+        public IReadOnlyCollection<ITransaction> ToReadOnlyCollection()
         {
             IReadOnlyCollection<ITransaction> transactions = new ReadOnlyCollection<ITransaction>(_transactions);
             return transactions;
         }
 
-        public ITransaction GetLastTransaction()
+        public ITransaction CopyOfLastTransaction()
         {
-            ITransaction transaction = _transactions[_transactions.Count - 1];
-            return transaction;
+            ITransaction lastTransaction = _transactions[_transactions.Count - 1];
+            ITransaction copyOfLastTransaction = null;
+
+            if (lastTransaction is Credit)
+            {
+                copyOfLastTransaction = Credit.LoadFromDetails(
+                        ((Credit)lastTransaction).Id,
+                        ((Credit)lastTransaction).AccountId,
+                        ((Credit)lastTransaction).Amount,
+                        ((Credit)lastTransaction).TransactionDate
+                    );
+            }
+
+            if (lastTransaction is Debit)
+            {
+                copyOfLastTransaction = Debit.LoadFromDetails(
+                        ((Debit)lastTransaction).Id,
+                        ((Debit)lastTransaction).AccountId,
+                        ((Debit)lastTransaction).Amount,
+                        ((Debit)lastTransaction).TransactionDate
+                    );
+            }
+
+            return copyOfLastTransaction;
         }
 
         public void Add(ITransaction transaction)

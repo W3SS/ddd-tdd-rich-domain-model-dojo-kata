@@ -1,7 +1,6 @@
 ﻿namespace Finance.Domain.Customers
 {
     using System;
-    using System.Collections.Generic;
     using Finance.Domain.ValueObjects;
 
     public sealed class Customer : IEntity, IAggregateRoot

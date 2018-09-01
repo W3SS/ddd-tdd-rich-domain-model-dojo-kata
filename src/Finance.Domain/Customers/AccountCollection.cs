@@ -13,7 +13,7 @@
             _accountIds = new List<Guid>();
         }
 
-        public IReadOnlyCollection<Guid> GetAccountIds()
+        public IReadOnlyCollection<Guid> ToReadOnlyCollection()
         {
             IReadOnlyCollection<Guid> accountIds = new ReadOnlyCollection<Guid>(_accountIds);
             return accountIds;

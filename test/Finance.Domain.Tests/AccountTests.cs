@@ -109,7 +109,7 @@ namespace Finance.DomainTests
 
             var transactions = sut.Transactions;
 
-            Assert.Equal(3, transactions.GetTransactions().Count); 
+            Assert.Equal(3, transactions.ToReadOnlyCollection().Count); 
         }
 
         [Fact]
@@ -129,7 +129,7 @@ namespace Finance.DomainTests
 
             //
             // Assert
-            Assert.Single(account.Transactions.GetTransactions());
+            Assert.Single(account.Transactions.ToReadOnlyCollection());
             Assert.Equal(Guid.Empty, account.Id);
             Assert.Equal(Guid.Empty, account.CustomerId);
         }

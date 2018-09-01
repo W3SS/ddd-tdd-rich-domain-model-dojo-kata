@@ -24,7 +24,7 @@ namespace Finance.DomainTests
 
             //
             // Assert
-            Assert.Single(sut.Accounts.GetAccountIds());
+            Assert.Single(sut.Accounts.ToReadOnlyCollection());
         }
 
         [Fact]

@@ -17,7 +17,7 @@ namespace Finance.DomainTests
                 new Debit(Guid.Empty, 30)
             });
 
-            Assert.Equal(2, transactionCollection.GetTransactions().Count);
+            Assert.Equal(2, transactionCollection.ToReadOnlyCollection().Count);
         }
     }
 }
