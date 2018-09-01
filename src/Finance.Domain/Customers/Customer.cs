@@ -8,40 +8,31 @@
     {
         public Guid Id { get; private set; }
         public Name Name { get; private set; }
-        public SSN SSN { get; private set; }
-        public IReadOnlyCollection<Guid> Accounts
-        {
-            get
-            {
-                IReadOnlyCollection<Guid> readOnly = _accounts.GetAccountIds();
-                return readOnly;
-            }
-        }
+        public Personnummer SSN { get; private set; }
+        public AccountCollection Accounts { get; private set; }
 
-        private AccountCollection _accounts;       
-                
-        public Customer(SSN ssn, Name name)
+        public Customer(Personnummer ssn, Name name)
         {
             Id = Guid.NewGuid();
             SSN = ssn;
             Name = name;
-            _accounts = new AccountCollection();
+            Accounts = new AccountCollection();
         }
 
         public void Register(Guid accountId)
         {
-            _accounts.Add(accountId);
+            Accounts.Add(accountId);
         }
 
         private Customer() { }
 
-        public static Customer Load(Guid id, Name name, SSN ssn, AccountCollection accounts)
+        public static Customer LoadFromDetails(Guid id, Name name, Personnummer ssn, AccountCollection accounts)
         {
             Customer customer = new Customer();
             customer.Id = id;
             customer.Name = name;
             customer.SSN = ssn;
-            customer._accounts = accounts;
+            customer.Accounts = accounts;
             return customer;
         }
     }

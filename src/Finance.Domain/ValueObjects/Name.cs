@@ -7,7 +7,7 @@
         public Name(string text)
         {
             if (string.IsNullOrWhiteSpace(text))
-                throw new NameShouldNotBeEmptyException("The 'Name' field is required");
+                throw new NameShouldNotBeEmptyException("The 'Name' field is required. Supplied an empty value.");
 
             _text = text;
         }

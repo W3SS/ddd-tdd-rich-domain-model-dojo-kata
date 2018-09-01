@@ -2,27 +2,27 @@
 {
     public sealed class Amount
     {
-        private double _value;
+        private decimal _value;
 
-        public Amount(double value)
+        public Amount(decimal value)
         {
             if (value < 0)
-                throw new AmountShouldBePositiveException("The amount should be positive.");
+                throw new AmountShouldBePositiveException($"The {value} its not a valid amount. It should be a positive value.");
 
             _value = value;
         }
 
         public override string ToString()
         {
-            return _value.ToString();
+            return _value.ToString("C");
         }
 
-        public static implicit operator double(Amount value)
+        public static implicit operator decimal(Amount value)
         {
             return value._value;
         }
 
-        public static implicit operator Amount(double value)
+        public static implicit operator Amount(decimal value)
         {
             return new Amount(value);
         }
@@ -69,12 +69,17 @@
                 return true;
             }
 
-            if (obj is double)
+            if (obj is decimal)
             {
-                return (double)obj == _value;
+                return (decimal)obj == _value;
             }
 
             return ((Amount)obj)._value == _value;
+        }
+
+        public override int GetHashCode()
+        {
+            return -1939223833 + _value.GetHashCode();
         }
     }
 }

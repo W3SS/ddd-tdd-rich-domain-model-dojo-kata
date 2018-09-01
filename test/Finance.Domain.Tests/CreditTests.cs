@@ -9,7 +9,7 @@ namespace Finance.DomainTests
         [Fact]
         public void Credit_Should_Be_Loaded()
         {
-            Credit credit = Credit.Load(
+            Credit credit = Credit.LoadFromDetails(
                 Guid.Empty,
                 Guid.Empty,
                 100,

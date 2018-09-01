@@ -16,7 +16,7 @@
 
         private Credit() { }
 
-        public static Credit Load(Guid id, Guid accountId, Amount amount, DateTime transactionDate)
+        public static Credit LoadFromDetails(Guid id, Guid accountId, Amount amount, DateTime transactionDate)
         {
             Credit credit = new Credit();
             credit.Id = id;

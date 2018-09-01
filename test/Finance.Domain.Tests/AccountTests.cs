@@ -8,14 +8,17 @@ namespace Finance.DomainTests
 
     public class AccountTests
     {
-        [Fact]
-        public void New_Account_Should_Have_100_Credit_After_Deposit()
+        [Theory]
+        [InlineData(100)]
+        [InlineData(0)]
+        [InlineData(400)]
+        public void Deposit_Should_Change_Balance_The_Same_Amount(decimal amountToDeposit)
         {
             //
             // Arrange
             Guid customerId = Guid.NewGuid();
-            Amount amount = new Amount(100.0);
             Account sut = new Account(customerId);
+            Amount amount = new Amount(amountToDeposit);
 
             //
             // Act
@@ -23,12 +26,10 @@ namespace Finance.DomainTests
 
             //
             // Assert
-            Credit credit = (Credit)sut.GetLastTransaction();
+            Amount balance = sut.GetCurrentBalance();
 
             Assert.Equal(customerId, sut.CustomerId);
-            Assert.Equal(100, credit.Amount);
-            Assert.Equal("Credit", credit.Description);
-            Assert.True(credit.AccountId != Guid.Empty);
+            Assert.Equal(amountToDeposit, (decimal)balance);
         }
 
         [Fact]
@@ -37,7 +38,7 @@ namespace Finance.DomainTests
             //
             // Arrange
             Account sut = new Account(Guid.NewGuid());
-            sut.Deposit(1000.0);
+            sut.Deposit(1000.0m);
 
             //
             // Act
@@ -106,9 +107,9 @@ namespace Finance.DomainTests
             //
             // Act and Assert
 
-            var transactions = sut.GetTransactions();
+            var transactions = sut.Transactions;
 
-            Assert.Equal(3, transactions.Count); 
+            Assert.Equal(3, transactions.GetTransactions().Count); 
         }
 
         [Fact]
@@ -121,14 +122,14 @@ namespace Finance.DomainTests
 
             //
             // Act
-            Account account = Account.Load(
+            Account account = Account.LoadFromDetails(
                 Guid.Empty,
                 Guid.Empty,
                 transactions);
 
             //
             // Assert
-            Assert.Single(account.GetTransactions());
+            Assert.Single(account.Transactions.GetTransactions());
             Assert.Equal(Guid.Empty, account.Id);
             Assert.Equal(Guid.Empty, account.CustomerId);
         }

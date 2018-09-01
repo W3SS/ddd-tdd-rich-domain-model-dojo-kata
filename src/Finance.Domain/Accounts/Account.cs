@@ -2,70 +2,67 @@
 {
     using Finance.Domain.ValueObjects;
     using System;
-    using System.Collections.Generic;
 
     public sealed class Account : IEntity, IAggregateRoot
     {
         public Guid Id { get; private set; }
         public Guid CustomerId { get; private set; }
-        public IReadOnlyCollection<ITransaction> GetTransactions()
-        {
-            IReadOnlyCollection<ITransaction> readOnly = _transactions.GetTransactions();
-            return readOnly;
-        }
-
-        private TransactionCollection _transactions;
+        public TransactionCollection Transactions { get; private set; }
 
         public Account(Guid customerId)
         {
             Id = Guid.NewGuid();
-            _transactions = new TransactionCollection();
             CustomerId = customerId;
+            Transactions = new TransactionCollection();
         }
 
         public void Deposit(Amount amount)
         {
             Credit credit = new Credit(Id, amount);
-            _transactions.Add(credit);
+            Transactions.Add(credit);
         }
 
         public void Withdraw(Amount amount)
         {
-            if (_transactions.GetCurrentBalance() < amount)
+            Amount balance = Transactions.GetCurrentBalance();
+
+            if (balance < amount)
                 throw new InsuficientFundsException(
-                $"The account {Id} does not have enough funds to withdraw {amount}.");
+                $"The account {Id} does not have enough funds to withdraw {amount}. Current Balance {balance}.");
 
             Debit debit = new Debit(Id, amount);
-            _transactions.Add(debit);
+            Transactions.Add(debit);
         }
 
         public void Close()
         {
-            if (_transactions.GetCurrentBalance() > 0)
+            Amount balance = Transactions.GetCurrentBalance();
+
+            if (balance > 0)
                 throw new AccountCannotBeClosedException(
-                $"The account {Id} can not be closed because it has funds.");
+                $"The account {Id} can not be closed because it has funds. Current Balance {balance}.");
         }
 
         public Amount GetCurrentBalance()
         {
-            Amount totalAmount = _transactions.GetCurrentBalance();
-            return totalAmount;
+            Amount balance = Transactions.GetCurrentBalance();
+            return balance;
         }
 
         public ITransaction GetLastTransaction()
         {
-            ITransaction transaction = _transactions.GetLastTransaction();
-            return transaction;
+            ITransaction lastTransaction = Transactions.GetLastTransaction();
+            return lastTransaction;
         }
 
         private Account() { }
 
-        public static Account Load(Guid id, Guid customerId, TransactionCollection transactions)
+        public static Account LoadFromDetails(Guid id, Guid customerId, TransactionCollection transactions)
         {
             Account account = new Account();
             account.Id = id;
             account.CustomerId = customerId;
-            account._transactions = transactions;
+            account.Transactions = transactions;
             return account;
         }
     }

@@ -9,7 +9,7 @@ namespace Finance.DomainTests
         [Fact]
         public void Debit_Should_Be_Loaded()
         {
-            Debit debit = Debit.Load(
+            Debit debit = Debit.LoadFromDetails(
                 Guid.Empty,
                 Guid.Empty,
                 100,

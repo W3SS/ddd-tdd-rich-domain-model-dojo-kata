@@ -24,7 +24,7 @@ namespace Finance.DomainTests
 
             //
             // Assert
-            Assert.Single(sut.Accounts);
+            Assert.Single(sut.Accounts.GetAccountIds());
         }
 
         [Fact]
@@ -37,7 +37,7 @@ namespace Finance.DomainTests
 
             Guid customerId = Guid.NewGuid();
 
-            Customer customer = Customer.Load(
+            Customer customer = Customer.LoadFromDetails(
                 customerId,
                 "Sammy Fredriksson",
                 "741214-3054",

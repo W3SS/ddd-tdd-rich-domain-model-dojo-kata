@@ -16,7 +16,7 @@
 
         private Debit() { }
 
-        public static Debit Load(Guid id, Guid accountId, Amount amount, DateTime transactionDate)
+        public static Debit LoadFromDetails(Guid id, Guid accountId, Amount amount, DateTime transactionDate)
         {
             Debit debit = new Debit();
             debit.Id = id;

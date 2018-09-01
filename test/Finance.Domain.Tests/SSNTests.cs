@@ -14,8 +14,8 @@ namespace Finance.DomainTests
 
             //
             // Act and Assert
-            Assert.Throws<SSNShouldNotBeEmptyException>(
-                () => new SSN(empty));
+            Assert.Throws<PersonnummerShouldNotBeEmptyException>(
+                () => new Personnummer(empty));
         }
 
         [Fact]
@@ -27,7 +27,7 @@ namespace Finance.DomainTests
 
             //
             // Act
-            SSN SSN = new SSN(valid);
+            Personnummer SSN = new Personnummer(valid);
 
             // Assert
             Assert.Equal(valid, SSN);

@@ -40,18 +40,18 @@
 
         public Amount GetCurrentBalance()
         {
-            Amount totalAmount = 0;
+            Amount balance = 0;
 
             foreach (ITransaction item in _transactions)
             {
                 if (item is Debit)
-                    totalAmount = totalAmount - item.Amount;
+                    balance = balance - item.Amount;
 
                 if (item is Credit)
-                    totalAmount = totalAmount + item.Amount;
+                    balance = balance + item.Amount;
             }
 
-            return totalAmount;
+            return balance;
         }
     }
 }

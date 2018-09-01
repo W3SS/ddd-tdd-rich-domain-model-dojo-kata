@@ -6,12 +6,14 @@ namespace Finance.DomainTests
 
     public class AmountTests
     {
-        [Fact]
-        public void Positive_Amount_Should_Be_Created()
+        [Theory]
+        [InlineData(0)]
+        [InlineData(100)]
+        public void Create_Amount(decimal value)
         {
             //
             // Arrange
-            double positiveAmount = 500;
+            decimal positiveAmount = value;
 
             //
             // Act
@@ -19,7 +21,7 @@ namespace Finance.DomainTests
 
             //
             // Assert
-            Assert.Equal<double>(positiveAmount, amount);
+            Assert.Equal<decimal>(positiveAmount, amount);
         }
 
         [Fact]
