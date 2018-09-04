@@ -103,7 +103,12 @@ public sealed class Name
 
 ### :alien: Continue to design the Model with the Customer and Account aggregates
 
-* It is important that an Aggregate is not coupled to another aggregate.
+* It is important that an Aggregate is not strongly coupled to another aggregate.
 * Value Objects are immutable.
-* Entities have Ids.
-* Aggregate are Entities that control the transaction consistency.
+* Entities have Ids and behaviors.
+* Aggregate Roots control the transaction consistency.
+
+### :alien: What did your learn?
+
+* Have you learned how to implement Value Objects?
+* Were you able to identify the Aggregate Root boundaries?
